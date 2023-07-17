@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         dataList.add(new TaskModel("testId","eat breakfast", "completed"));
         dataList.add(new TaskModel("testId","run", "pending"));
 
-        taskListAdapter=new TaskListAdapter(this, dataList);
+        taskListAdapter=new TaskListAdapter(dataList);
 
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false);
         taskRv.setLayoutManager(layoutManager);

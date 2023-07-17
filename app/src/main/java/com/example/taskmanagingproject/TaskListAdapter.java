@@ -21,7 +21,6 @@ import java.util.Locale;
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
 
         private ArrayList<TaskModel> taskDataset;
-        private Context context;
 
 
     /**
@@ -47,8 +46,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
             }
         }
 
-        public TaskListAdapter(Context context, ArrayList<TaskModel> taskDataset) {
-            this.context = context;
+        public TaskListAdapter(ArrayList<TaskModel> taskDataset) {
             this.taskDataset = taskDataset;
         }
 
@@ -72,21 +70,15 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
             viewHolder.taskStatusTv.setText(taskDataset.get(position).getTaskStatus());
 
             String status = taskDataset.get(position).getTaskStatus();
-            System.out.println(status);
 
 
             if (status.toLowerCase().equals("pending")) {
-                viewHolder.taskStatusTv.setTextColor(ContextCompat.getColor(context, R.color.pendingColor));
-                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+                viewHolder.taskStatusTv.setTextColor(Color.parseColor("#FFFF00"));
             } else if (status.toLowerCase().equals("completed")) {
-                viewHolder.taskStatusTv.setTextColor(ContextCompat.getColor(context, R.color.completedColor));
-                GradientDrawable shapeDrawable = new GradientDrawable();
-                shapeDrawable.setColor(ContextCompat.getColor(context, R.color.completedColor));
-                System.out.println(shapeDrawable.getColor());
+                viewHolder.taskStatusTv.setTextColor(Color.parseColor("#00FF00"));
 
             } else {
-                viewHolder.taskStatusTv.setTextColor(ContextCompat.getColor(context, android.R.color.white));
-                viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+                viewHolder.taskStatusTv.setTextColor(Color.parseColor("#FFFFFF"));
             }
 
         }

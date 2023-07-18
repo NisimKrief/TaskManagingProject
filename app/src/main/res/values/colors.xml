@@ -10,4 +10,5 @@
     <color name="backgroundcolor">#F6F5EF</color>
     <color name="pendingColor">#FFEB3B</color>
     <color name="completedColor">#A0FC36</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>

@@ -5,15 +5,22 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.shapes.Shape;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taskmanagingproject.model.TaskModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -31,7 +38,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
             private final TextView taskNameTv, taskStatusTv;
             private final CardView cardView;
 
-
+            LinearLayout containerll;
 
 
             public ViewHolder(View view) {
@@ -40,7 +47,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
                 taskNameTv = (TextView) view.findViewById(R.id.taskNameTv);
                 taskStatusTv = (TextView) view.findViewById(R.id.taskStatusTv);
                 cardView = (CardView) view.findViewById(R.id.cardId);
-
+                containerll = (LinearLayout) view.findViewById(R.id.containerLL);
 
             }
 
@@ -76,15 +83,50 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
 
             if (status.toLowerCase().equals("pending")) {
-                viewHolder.taskStatusTv.setTextColor(Color.parseColor("#FFFF00"));
+                viewHolder.taskStatusTv.setTextColor(Color.parseColor("#FFD300"));
             } else if (status.toLowerCase().equals("completed")) {
-                viewHolder.taskStatusTv.setTextColor(Color.parseColor("#00FF00"));
+                viewHolder.taskStatusTv.setTextColor(Color.parseColor("#013220"));
                 viewHolder.cardView.setCardBackgroundColor(Color.parseColor("#00FF00"));
 
 
             } else {
                 viewHolder.taskStatusTv.setTextColor(Color.parseColor("#FFFFFF"));
             }
+
+            viewHolder.containerll.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    PopupMenu popupMenu = new PopupMenu(view.getContext(), viewHolder.containerll);
+                    popupMenu.inflate(R.menu.taskmenu);
+                    popupMenu.show();
+
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem) {
+                            if(menuItem.getItemId()==R.id.deleteMenu){
+                                FirebaseFirestore.getInstance().collection("tasks").document(taskDataset.get(position).getTaskId()).delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(view.getContext() , "Task Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                                viewHolder.containerll.setVisibility(View.GONE);
+                                            }
+                                        });
+
+                            }
+
+
+
+                            return false;
+                        }
+                    });
+
+
+
+
+                    return false;
+                }
+            });
 
         }
 

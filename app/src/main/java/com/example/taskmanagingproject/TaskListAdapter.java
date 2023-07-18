@@ -29,15 +29,18 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
          */
         public static class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView taskNameTv, taskStatusTv;
+            private final CardView cardView;
+
 
 
 
             public ViewHolder(View view) {
                 super(view);
-                // Define click listener for the ViewHolder's View
 
                 taskNameTv = (TextView) view.findViewById(R.id.taskNameTv);
                 taskStatusTv = (TextView) view.findViewById(R.id.taskStatusTv);
+                cardView = (CardView) view.findViewById(R.id.cardId);
+
 
             }
 
@@ -76,6 +79,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
                 viewHolder.taskStatusTv.setTextColor(Color.parseColor("#FFFF00"));
             } else if (status.toLowerCase().equals("completed")) {
                 viewHolder.taskStatusTv.setTextColor(Color.parseColor("#00FF00"));
+                viewHolder.cardView.setCardBackgroundColor(Color.parseColor("#00FF00"));
+
 
             } else {
                 viewHolder.taskStatusTv.setTextColor(Color.parseColor("#FFFFFF"));

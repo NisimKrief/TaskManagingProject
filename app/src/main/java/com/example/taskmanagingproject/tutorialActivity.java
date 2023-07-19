@@ -25,6 +25,7 @@ public class tutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
         imageView = (ImageView) findViewById(R.id.imageView);
+        imageView.setImageResource(R.drawable.image0);
     }
 
 

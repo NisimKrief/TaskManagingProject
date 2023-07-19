@@ -26,27 +26,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * The type Task list adapter.
+ */
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
 
         private ArrayList<TaskModel> taskDataset;
-        public void setFilteredList(ArrayList<TaskModel> filteredList){
+
+    /**
+     * Set filtered list.
+     *
+     * @param filteredList the filtered list
+     */
+    public void setFilteredList(ArrayList<TaskModel> filteredList){
             this.taskDataset = filteredList;
             notifyDataSetChanged();
         }
 
 
     /**
-         * Provide a reference to the type of views that you are using
-         * (custom ViewHolder)
-         */
-        public static class ViewHolder extends RecyclerView.ViewHolder {
+     * Provide a reference to the type of views that you are using
+     * (custom ViewHolder)
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView taskNameTv, taskStatusTv;
             private final CardView cardView;
 
-            LinearLayout containerll;
+        /**
+         * The Containerll.
+         */
+        LinearLayout containerll;
 
 
-            public ViewHolder(View view) {
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param view the view
+         */
+        public ViewHolder(View view) {
                 super(view);
 
                 taskNameTv = (TextView) view.findViewById(R.id.taskNameTv);
@@ -56,12 +73,22 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
             }
 
-            public TextView getTextView() {
+        /**
+         * Gets text view.
+         *
+         * @return the text view
+         */
+        public TextView getTextView() {
                 return taskNameTv;
             }
         }
 
-        public TaskListAdapter(ArrayList<TaskModel> taskDataset) {
+    /**
+     * Instantiates a new Task list adapter.
+     *
+     * @param taskDataset the task dataset
+     */
+    public TaskListAdapter(ArrayList<TaskModel> taskDataset) {
             this.taskDataset = taskDataset;
         }
 

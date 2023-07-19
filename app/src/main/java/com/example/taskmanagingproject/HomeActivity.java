@@ -49,20 +49,56 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
+/**
+ * The Main Activity where the tasks are shown
+ */
 public class HomeActivity extends AppCompatActivity {
 
+    /**
+     * The Task rv.
+     */
     RecyclerView taskRv;
+    /**
+     * The Adb.
+     */
     AlertDialog.Builder adb;
 
+    /**
+     * The Data list.
+     */
     ArrayList<TaskModel> dataList= new ArrayList<>();
+    /**
+     * The Task list adapter.
+     */
     TaskListAdapter taskListAdapter;
+    /**
+     * The E t.
+     */
     EditText eT;
+    /**
+     * The Db.
+     */
     FirebaseFirestore db;
+    /**
+     * The Tag.
+     */
     String TAG="MYT";
+    /**
+     * The User name tv.
+     */
     TextView userNameTv;
+    /**
+     * The User image iv.
+     */
     CircleImageView userImageIv;
+    /**
+     * The Search view.
+     */
     SearchView searchView;
 
+    /**
+     * The Current sorting option.
+     */
     String currentSortingOption = "all";
 
 
@@ -134,7 +170,7 @@ public class HomeActivity extends AppCompatActivity {
         userImageIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupMenu(view); // Call the method to show the options menu
+                showPopupMenu(view);
             }
         });
     }
@@ -148,7 +184,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
         if(filteredList.isEmpty()){
-            //Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
         }
         else{
             taskListAdapter.setFilteredList(filteredList);
@@ -159,7 +194,6 @@ public class HomeActivity extends AppCompatActivity {
         PopupMenu popupMenu = new PopupMenu(this, view);
         getMenuInflater().inflate(R.menu.settingsmenu, popupMenu.getMenu());
 
-        // Handle menu item click events
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -181,7 +215,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // Show the popup menu
         popupMenu.show();
     }
     @Override
@@ -193,15 +226,17 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_logout) {
-            // Handle logout functionality here
-            // For example, you can call a logout method or show a logout dialog.
-            // Replace the code below with your desired logout implementation.
             Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onContextItemSelected(item);
     }
 
+    /**
+     * Add task.
+     *
+     * @param view the view
+     */
     public void addTask(View view) {
         adb.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
             @Override
@@ -247,6 +282,11 @@ public class HomeActivity extends AppCompatActivity {
         eT.setText("");
     }
 
+    /**
+     * Sort menu.
+     *
+     * @param view the view
+     */
     public void sortMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         getMenuInflater().inflate(R.menu.sortmenu, popupMenu.getMenu());

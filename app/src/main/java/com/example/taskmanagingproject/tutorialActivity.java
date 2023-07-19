@@ -7,8 +7,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
 
+/**
+ * the tutorialActivity shown for first time users
+ */
 public class tutorialActivity extends AppCompatActivity {
+    /**
+     * The Image view.
+     */
     ImageView imageView;
+    /**
+     * The Num.
+     */
     int num = 0;
 
     @Override
@@ -19,15 +28,30 @@ public class tutorialActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Next Image button.
+     *
+     * @param view the view
+     */
     public void NextButton(View view) {
         num++;
         changeImage();
     }
 
+    /**
+     * Previous button.
+     *
+     * @param view the view
+     */
     public void PreviousButton(View view) {
-        num--;
+        if(num!=0)
+            num--;
         changeImage();
     }
+
+    /**
+     * Change image according to the number.
+     */
     public void changeImage(){
         switch (num) {
             case 0:

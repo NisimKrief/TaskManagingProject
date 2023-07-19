@@ -24,13 +24,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+/**
+ * The First Screen
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -73,10 +74,9 @@ signIn();
         });
     }
     @Override
-    // [START on_start_check_user]
+
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
@@ -97,8 +97,6 @@ signIn();
             }
         }
     }
-    // [END onactivityresult]
-    // [START auth_with_google]
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
@@ -106,7 +104,6 @@ signIn();
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
@@ -120,14 +117,12 @@ signIn();
                 });
 
     }
-    // [END auth_with_google
 
-    // [START signin]
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    // [END signin]
+
     private void updateUI(FirebaseUser user) {
         if(user!=null){
 

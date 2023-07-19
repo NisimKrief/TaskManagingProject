@@ -124,6 +124,7 @@ public class HomeActivity extends AppCompatActivity {
                                     Toast.makeText(HomeActivity.this, "New Task Created Successfully", Toast.LENGTH_SHORT).show();
                                     taskModel.setTaskId(documentReference.getId());
                                     dataList.add(taskModel);
+                                    documentReference.update("taskId", documentReference.getId());
                                     taskListAdapter.notifyDataSetChanged();
 
                                 }

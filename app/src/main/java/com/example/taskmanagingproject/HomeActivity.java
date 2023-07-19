@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -95,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
                                 TaskModel taskModel =document.toObject(TaskModel.class);
 
                                 dataList.add(taskModel);
-                                taskModel.setTaskId(document.getId());
+
                                 taskListAdapter.notifyDataSetChanged();
 
                             }
@@ -121,6 +122,9 @@ public class HomeActivity extends AppCompatActivity {
                                 public void onSuccess(DocumentReference documentReference) {
                                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                                     Toast.makeText(HomeActivity.this, "New Task Created Successfully", Toast.LENGTH_SHORT).show();
+                                    taskModel.setTaskId(documentReference.getId());
+                                    dataList.add(taskModel);
+                                    taskListAdapter.notifyDataSetChanged();
 
                                 }
                             })

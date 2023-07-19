@@ -2,5 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/deleteMenu" android:title="Delete">
     </item>
+    <item android:id="@+id/confirmMenu" android:title="Finish Task"></item>
 
 </menu>

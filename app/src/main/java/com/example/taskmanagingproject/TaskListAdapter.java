@@ -86,7 +86,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
                 viewHolder.taskStatusTv.setTextColor(Color.parseColor("#FFD300"));
             } else if (status.toLowerCase().equals("completed")) {
                 viewHolder.taskStatusTv.setTextColor(Color.parseColor("#013220"));
-                viewHolder.cardView.setCardBackgroundColor(Color.parseColor("#00FF00"));
+                viewHolder.cardView.setCardBackgroundColor(Color.parseColor("#8AFFA9"));
 
 
             } else {
@@ -108,16 +108,37 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
+                                                taskDataset.remove(position);
+                                                notifyItemRemoved(position);
                                                 Toast.makeText(view.getContext() , "Task Deleted Successfully", Toast.LENGTH_SHORT).show();
-                                                viewHolder.containerll.setVisibility(View.GONE);
                                             }
                                         });
+                                return true;
+
+                            }
+                             if(menuItem.getItemId()==R.id.confirmMenu){
+
+                                TaskModel completedTask = taskDataset.get(position);
+                                completedTask.setTaskStatus("COMPLETED");
+                                FirebaseFirestore.getInstance().collection("tasks").document(taskDataset.get(position).getTaskId())
+                                        .set(completedTask).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(view.getContext() , "Task Marked As Completed", Toast.LENGTH_SHORT).show();
+                                                viewHolder.taskStatusTv.setText("COMPLETED");
+                                                viewHolder.taskStatusTv.setTextColor(Color.parseColor("#013220"));
+                                                viewHolder.cardView.setCardBackgroundColor(Color.parseColor("#8AFFA9"));
+                                            }
+                                        });
+
+
 
                             }
 
 
 
-                            return false;
+
+                             return false;
                         }
                     });
 

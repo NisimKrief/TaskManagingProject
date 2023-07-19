@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +47,21 @@ public class MainActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         getSupportActionBar().hide();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isFirstTime = preferences.getBoolean("firstTime", true);
+        System.out.println(isFirstTime);
+        if (isFirstTime) {
+            startActivity(new Intent(MainActivity.this, tutorialActivity.class));
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("firstTime", false);
+            editor.apply();
+            editor.commit();
+        }
+
 
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        // [END config_signin]
-
-        // [START initialize_auth]
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.signinBtn).setOnClickListener(new View.OnClickListener() {
@@ -71,7 +84,6 @@ signIn();
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -86,7 +98,6 @@ signIn();
         }
     }
     // [END onactivityresult]
-
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -107,6 +118,7 @@ signIn();
                         }
                     }
                 });
+
     }
     // [END auth_with_google
 
@@ -118,8 +130,13 @@ signIn();
     // [END signin]
     private void updateUI(FirebaseUser user) {
         if(user!=null){
+
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            }
+
         }
 
     }
-}
+
+
+

@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="187dp"
-        android:src="@drawable/mutlogomiddle" />
+        android:src="@drawable/mytlogo" />
 
     <com.google.android.gms.common.SignInButton
         android:layout_width="match_parent"

@@ -23,11 +23,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
 
         private ArrayList<TaskModel> taskDataset;
+        public void setFilteredList(ArrayList<TaskModel> filteredList){
+            this.taskDataset = filteredList;
+            notifyDataSetChanged();
+        }
 
 
     /**

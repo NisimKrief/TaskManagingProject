@@ -81,7 +81,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
             String status = taskDataset.get(position).getTaskStatus();
 
-
+            viewHolder.cardView.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             if (status.toLowerCase().equals("pending")) {
                 viewHolder.taskStatusTv.setTextColor(Color.parseColor("#FFD300"));
             } else if (status.toLowerCase().equals("completed")) {
@@ -126,8 +126,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
                                             public void onSuccess(Void unused) {
                                                 Toast.makeText(view.getContext() , "Task Marked As Completed", Toast.LENGTH_SHORT).show();
                                                 viewHolder.taskStatusTv.setText("COMPLETED");
-                                                viewHolder.taskStatusTv.setTextColor(Color.parseColor("#013220"));
-                                                viewHolder.cardView.setCardBackgroundColor(Color.parseColor("#8AFFA9"));
+                                                notifyItemChanged(position);
                                             }
                                         });
 

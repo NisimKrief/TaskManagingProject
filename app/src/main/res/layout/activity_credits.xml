@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:text="V0.9"
+        android:text="V1.0"
         android:textSize="20dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
